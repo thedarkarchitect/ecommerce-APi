@@ -1,6 +1,7 @@
 package com.example.ecommerce.service.product;
 
 import com.example.ecommerce.dto.ProductDTO;
+import com.example.ecommerce.models.Category;
 import com.example.ecommerce.models.Product;
 import com.example.ecommerce.request.CreateProductRequest;
 import com.example.ecommerce.request.ProductUpdateRequest;
@@ -16,7 +17,7 @@ public interface ProductService {
 
     List<Product> getProductsByCategory(String category);
     List<Product> getProductsByBrand(String brand);
-    List<Product> getProductsByCategoryAndBrand(String category, String brand);
+    List<Product> getProductsByCategoryNameAndBrand(String category, String brand);
     List<Product> getProductsByName(String name);
     List<Product> getProductsByBrandAndName(String brand, String name);
     Long countByBrandAndName(String brand, String name);
