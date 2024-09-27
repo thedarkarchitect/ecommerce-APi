@@ -13,14 +13,15 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestController
 @RequestMapping("${api.prefix}/cartItems")
 public class CartItemController {
-    private final CartItemService cartItemService;
-    private final CartService cartService;
+
+    private final CartItemService cartItemService; // Service for CartItem entity
+    private final CartService cartService; // Service for Cart entity
 
 
     @PostMapping("/item/add")
-    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam(required = false) Long cartId,
+    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam(required = false) Long cartId, // URL mapping for the method
                                                      @RequestParam Long productId,
-                                                     @RequestParam Integer quantity) {
+                                                     @RequestParam Integer quantity) { // Method to add an item to the cart
         try {
             if (cartId == null) {
                 cartId= cartService.initializeNewCart();
@@ -35,7 +36,7 @@ public class CartItemController {
     @DeleteMapping("/cart/{cartId}/item/{itemId}/remove")
     public ResponseEntity<ApiResponse> removeItemFromCart(@PathVariable Long cartId, @PathVariable Long itemId) {
         try {
-            cartItemService.removeItemFromCart(cartId, itemId);
+            cartItemService.removeItemFromCart(cartId, itemId); // Remove item from cart
             return ResponseEntity.ok(new ApiResponse("Remove Item Success", null));
         } catch (RuntimeException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
@@ -43,11 +44,10 @@ public class CartItemController {
     }
 
     @PutMapping("/cart/{cartId}/item/{itemId}/update")
-    public  ResponseEntity<ApiResponse> updateItemQuantity(@PathVariable Long cartId,
-                                                           @PathVariable Long itemId,
+    public  ResponseEntity<ApiResponse> updateItemQuantity(@PathVariable Long cartId, @PathVariable Long itemId,
                                                            @RequestParam Integer quantity) {
         try {
-            cartItemService.updateItemQuantity(cartId, itemId, quantity);
+            cartItemService.updateItemQuantity(cartId, itemId, quantity); // Update item quantity
             return ResponseEntity.ok(new ApiResponse("Update Item Success", null));
         } catch (RuntimeException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));

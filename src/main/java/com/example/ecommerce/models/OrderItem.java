@@ -26,7 +26,7 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderItem(Order order, Product product, int quantity, BigDecimal price) {
+    public OrderItem(Order order, Product product, int quantity, BigDecimal price) { // Constructor to initialize the fields
         this.order = order;
         this.product = product;
         this.quantity = quantity;

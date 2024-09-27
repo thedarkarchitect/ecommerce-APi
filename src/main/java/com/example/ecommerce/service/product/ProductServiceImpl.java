@@ -69,10 +69,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(ProductUpdateRequest product, Long id) {
-        return productRepository.findById(product.getId())
+        return productRepository.findById(id)
                 .map(existingProduct -> updateExistingProduct(product, existingProduct))
                 .map(productRepository::save)
-                .orElseThrow(() -> new RuntimeException("Product not found with id " + product.getId()));
+                .orElseThrow(() -> new RuntimeException("Product not found with id " + id));
     }
 
     private Product updateExistingProduct(ProductUpdateRequest product, Product existingProduct) {

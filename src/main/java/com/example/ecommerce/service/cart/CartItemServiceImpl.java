@@ -51,8 +51,8 @@ public class CartItemServiceImpl implements CartItemService{
     @Override
     public void removeItemFromCart(Long cartId, Long productId) {
         Cart cart = cartService.getCart(cartId);
-        CartItem itemToRemove = getCartItem(cartId, productId);
-        cart.removeItem(itemToRemove);
+        CartItem itemToRemove = getCartItem(cartId, productId); // Get the cart item to remove
+        cart.removeItem(itemToRemove); // Remove the item from the cart
         cartRepository.save(cart);
     }
 
@@ -61,16 +61,16 @@ public class CartItemServiceImpl implements CartItemService{
         Cart cart = cartService.getCart(cartId);
         cart.getItems()
                 .stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
-                .findFirst()
-                .ifPresent(item -> {
+                .filter(item -> item.getProduct().getId().equals(productId)) // Filter the item by product id
+                .findFirst() // Get the first item
+                .ifPresent(item -> { // If the item is present
                     item.setQuantity(quantity);
                     item.setUnitPrice(item.getProduct().getPrice());
                     item.setTotalPrice();
                 });
-        BigDecimal totalAmount = cart.getItems()
-                .stream().map(CartItem ::getTotalPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal totalAmount = cart.getItems() // Get the total amount of the cart
+                .stream().map(CartItem ::getTotalPrice) // Map the cart items to total price
+                .reduce(BigDecimal.ZERO, BigDecimal::add); // Reduce the total price to a single value because it is a stream
 
         cart.setTotalAmount(totalAmount);
         cartRepository.save(cart);
@@ -81,7 +81,7 @@ public class CartItemServiceImpl implements CartItemService{
         Cart cart = cartService.getCart(cartId);
         return  cart.getItems()
                 .stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
+                .filter(item -> item.getProduct().getId().equals(productId)) // Filter the item by product id
                 .findFirst().orElseThrow(() -> new RuntimeException("Item not found in the cart"));
     }
 }

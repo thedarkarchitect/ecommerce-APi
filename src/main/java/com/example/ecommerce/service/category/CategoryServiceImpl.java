@@ -2,6 +2,7 @@ package com.example.ecommerce.service.category;
 
 import com.example.ecommerce.dto.CategoryDTO;
 import com.example.ecommerce.models.Category;
+import com.example.ecommerce.repository.CartRepository;
 import com.example.ecommerce.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
     //referred to as constructor-based dependency injection.
     private final ModelMapper modelMapper;// This class provides the mapping of the objects.
     private final CategoryRepository categoryRepository;// This class provides the mechanism for storage, retrieval, search, update and delete operation on objects.
+    private final CartRepository cartRepository;
 
     @Override
     public List<Category> getAllCategories() {
@@ -43,8 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Category category) {
-        return Optional.ofNullable(getCategoryById(category.getId()))// This method returns the category by id from the database if it exists.
+    public Category updateCategory(Long id, CategoryDTO category) {
+        return Optional.ofNullable(getCategoryById(id))// This method returns the category by id from the database if it exists.
                 .map(existingCategory -> { // This method maps the existing category.
                     existingCategory.setName(category.getName());// This method sets the name of the category.
                     return categoryRepository.save(existingCategory);// This method saves the category in the database after update.

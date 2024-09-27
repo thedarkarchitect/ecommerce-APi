@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository // This annotation is used to indicate that the class provides the mechanism for storage, retrieval, search, update and delete operation on objects.
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    List<Image> findByProductId(Long productId);
+    List<Image> findByProductId(Long productId); // This method is used to find all images by product id.
 }

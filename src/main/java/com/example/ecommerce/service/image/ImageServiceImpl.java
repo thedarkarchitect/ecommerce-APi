@@ -50,12 +50,12 @@ public class ImageServiceImpl implements ImageService {
                 image.setProduct(product);
 
                 String buildDownloadUrl = "/api/v1/images/image/download/";
-                String downloadUrl = buildDownloadUrl + image.getId();
-                image.setDownloadUrl(downloadUrl);
-                Image savedImage = imageRepository.save(image);
+                String downloadUrl = buildDownloadUrl + image.getId(); // image id is temporary because it is not saved in the database yet so id = null
+                image.setDownloadUrl(downloadUrl); // This is a temporary download URL and id is null
+                Image savedImage = imageRepository.save(image); // Save image to the database and id is generated
 
-                savedImage.setDownloadUrl(buildDownloadUrl + savedImage.getId());
-                imageRepository.save(savedImage);
+                savedImage.setDownloadUrl(buildDownloadUrl + savedImage.getId()); // we redo this step to get the id from the database of the saved image
+                imageRepository.save(savedImage); // Save image to the database
 
                 ImageDTO imageDTO = new ImageDTO();
                 imageDTO.setId(savedImage.getId());

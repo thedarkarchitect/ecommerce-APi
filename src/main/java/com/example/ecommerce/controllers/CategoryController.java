@@ -41,7 +41,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/category/{id}/category") // This annotation is used to map HTTP GET requests onto specific handler methods.
+    @GetMapping("/category/{id}/") // This annotation is used to map HTTP GET requests onto specific handler methods.
     public ResponseEntity<ApiResponse> getCategoryById(@PathVariable Long id) {
         try{
             CategoryDTO category = categoryService.convertToDto(categoryService.getCategoryById(id)); // This method returns the category by id from the database.
@@ -51,7 +51,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/category/{name}/category") // This annotation is used to map HTTP GET requests onto specific handler methods.
+    @GetMapping("/category/categoryName/{name}") // This annotation is used to map HTTP GET requests onto specific handler methods.
     public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String name) {
         try{
             CategoryDTO category = categoryService.convertToDto(categoryService.getCategoryByName(name)); // This method returns the category by name from the database.
@@ -62,9 +62,9 @@ public class CategoryController {
     }
 
     @PutMapping("/category/{id}/update") // This annotation is used to map HTTP PUT requests onto specific handler methods.
-    public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO name) {
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryRequest) {
         try{
-            CategoryDTO category = categoryService.convertToDto(categoryService.updateCategory(categoryService.convertToEntity(name))); // This method updates the category in the database.
+            CategoryDTO category = categoryService.convertToDto(categoryService.updateCategory(id, categoryRequest)); // This method updates the category in the database.
             return ResponseEntity.ok(new ApiResponse("Success", category));
         } catch (Exception e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failure", e.getMessage()));

@@ -23,11 +23,11 @@ public class Order {
     private LocalDate orderDate;
     private BigDecimal totalAmount;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    @Enumerated(EnumType.STRING) // JPA annotation to store the enum value in the database
+    private OrderStatus status; // Enum field to store the order status
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OrderItem> items = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>(); // Set of order items in the order
 
     @ManyToOne
     @JoinColumn(name = "user_id")

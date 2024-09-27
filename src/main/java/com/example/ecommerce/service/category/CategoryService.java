@@ -10,7 +10,7 @@ public interface CategoryService {
     Category getCategoryById(Long id);
     Category getCategoryByName(String name);
     Category saveCategory(Category category);
-    Category updateCategory(Category category);
+    Category updateCategory(Long id, CategoryDTO category);
     void deleteCategory(Long id);
 
     CategoryDTO convertToDto(Category category);

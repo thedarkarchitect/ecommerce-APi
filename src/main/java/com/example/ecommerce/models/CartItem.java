@@ -29,7 +29,7 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    public void setTotalPrice() {
-        this.totalPrice = this.unitPrice.multiply(new BigDecimal(quantity));
+    public void setTotalPrice() { // Set the total price of the cart item
+        this.totalPrice = this.unitPrice.multiply(new BigDecimal(quantity)); // Calculate the total price by multiplying the unit price by the quantity
     }
 }

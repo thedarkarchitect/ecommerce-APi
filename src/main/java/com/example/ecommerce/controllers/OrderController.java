@@ -31,7 +31,7 @@ public class OrderController {
     @GetMapping("/{orderId}/order")
     public ResponseEntity<ApiResponse> getOrderById(@PathVariable Long orderId) {
         try {
-            OrderDTO order = orderService.getOrder(orderId);
+            OrderDTO order = orderService.getOrder(orderId); // Get order by id
             return ResponseEntity.ok(new ApiResponse("Item Order Success!", order));
         } catch (RuntimeException e) {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Oops!", e.getMessage()));
@@ -41,7 +41,7 @@ public class OrderController {
     @GetMapping("/{userId}/order")
     public ResponseEntity<ApiResponse> getUserOrders(@PathVariable Long userId) {
         try {
-            List<OrderDTO> order = orderService.getUserOrders(userId);
+            List<OrderDTO> order = orderService.getUserOrders(userId); // Get all orders by user id
             return ResponseEntity.ok(new ApiResponse("Item Order Success!", order));
         } catch (RuntimeException e) {
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Oops!", e.getMessage()));

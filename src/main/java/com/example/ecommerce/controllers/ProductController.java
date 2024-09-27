@@ -24,8 +24,12 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProducts() {
-        List<ProductDTO> products = productService.getConvertedProducts(productService.getAllProducts());
-        return ResponseEntity.ok(new ApiResponse("Success!", products));
+        try{
+            List<ProductDTO> products = productService.getConvertedProducts(productService.getAllProducts());
+            return ResponseEntity.ok(new ApiResponse("Success!", products));
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failure!", e.getMessage()));
+        }
     }
 
     @GetMapping("/product/{productId}/product")
@@ -51,6 +55,7 @@ public class ProductController {
     @PutMapping("/product/{productId}/update")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest request) {
         try {
+            System.out.println("the id captured: "+productId);
             ProductDTO productDTO = productService.convertToDto(productService.updateProduct(request, productId));
             return ResponseEntity.ok(new ApiResponse("Product updated successfully!", productDTO));
         } catch (Exception e) {
@@ -85,7 +90,7 @@ public class ProductController {
     @GetMapping("/products/{name}/products")
     public ResponseEntity<ApiResponse> getProductByName(@PathVariable String name){
         try {
-            List<ProductDTO> products = productService.getConvertedProducts(productService.getProductsByName(name));
+            List<ProductDTO> products = productService.getConvertedProducts(productService.getProductsByName(name)); // Get products by name
             if (products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No products found ", null));
             }

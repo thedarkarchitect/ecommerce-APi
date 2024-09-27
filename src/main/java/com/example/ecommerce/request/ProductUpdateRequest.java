@@ -6,8 +6,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ProductUpdateRequest {
-    private Long id; // might not be needed
+public class ProductUpdateRequest { // Request object to update a product
+//    private Long id; // might not be needed
     private String name;
     private String brand;
     private BigDecimal price;
