@@ -1,5 +1,6 @@
 package com.example.ecommerce.models;
 
+import com.example.ecommerce.enums.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "\"users\"")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -22,6 +23,7 @@ public class User {
     @NaturalId
     private String email;
     private String password;
+    private Roles role = Roles.CLIENT;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
